@@ -60,4 +60,4 @@
 
 3. Interact with the project management features through the Angular user interface.
 
-# Made with love, Oussama.
+# Made with love, Oussama-
