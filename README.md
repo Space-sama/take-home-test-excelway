@@ -54,7 +54,7 @@
 
 ## Usage
 
-1. Start the NestJS backend server using `nodemon` (npm start run:dev).
+1. Start the NestJS backend server using `nodemon` (npm run start:dev).
 
 2. Run the Angular frontend application (ng serve) --o : http://localhost:4200/projects
 
