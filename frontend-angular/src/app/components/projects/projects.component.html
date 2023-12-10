@@ -1,0 +1,70 @@
+<ng-container *ngIf="error">
+  <p class="error-message">{{ error }}</p>
+</ng-container>
+
+<div class="loading" *ngIf="loading">Loading...</div>
+<div class="container text-center">
+  <a *ngIf="!error" type="button" class="btn btn-primary btn-lg btn-block" href="/projects/createOne">Add new project</a>
+</div>
+<div class="host" *ngIf="projects" [cdkDropListData]="projects" (cdkDropListDropped)="onDragDrop($event)" cdkDropList>
+  <section class="project-listings" *ngFor="let project of projects">
+      <div class="project-card" cdkDrag>
+        <img [src]="imageUrl" alt="Logo"/>
+        <p class="project-name">{{ project.title }} || {{ project.order }}</p>
+        <p class="project-description">{{ project.description }}</p>
+        <p class="project-description">{{ project.createdAt }}</p>
+        <button *ngIf="project.priority === 'LOW'" class="project-priority-LOW">{{ project.priority }}</button>
+        <button *ngIf="project.priority === 'MEDIUM'" class="project-priority-MEDIUM">{{ project.priority }}</button>
+        <button *ngIf="project.priority === 'HIGH'" class="project-priority-HIGH">{{ project.priority }}</button>
+        <button class="view-to-cart-button" (click)="viewProject(project.id)">👁️‍🗨️ View Project</button>
+        <button class="edit-button" role="button" [routerLink]="['/projects/', project?.id]">✏️ Edit Project</button>
+        <button class="delete-button" role="button" (click)="deleteOne(project.id)">🗑️ Delete Project</button>
+
+        <!-- Second method < Modal view > -->
+        <button class="view-to-cart-button-2" data-toggle="modal" [attr.data-target]="'#exampleModal' + project.id">
+          👁️‍🗨️ View Project in a Modal View
+        </button>
+      </div>
+
+      <!-- Bootstrap Modal View -->
+      <div class="modal fade" [attr.id]="'exampleModal' + project.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Project Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-10 ">
+                  <p>Project ID : <span class="sp-data">{{project.id}}</span></p>
+                </div>
+                <div class="col-md-10">
+                  <p>Project Title : <span class="sp-data">{{project.title}}</span></p>
+                </div>
+                <div class="col-md-10">
+                  <p>Project Description : <span class="sp-data">{{project.description}}</span></p>
+                </div>
+                <div class="col-md-10">
+                  <p>Date of creation : <span class="sp-data">{{project.createdAt | date:'yyyy-MM-dd'}} At {{project.createdAt | date:'HH:mm:ss'}}</span></p>
+                </div>
+                <div class="col-md-10">
+                  <p>Date of edition : <span class="sp-data">{{project.updatedAt | date:'yyyy-MM-dd'}} At {{project.createdAt | date:'HH:mm:ss'}}</span></p>
+                </div>
+                <div class="col-md-10">
+                  <p>Priority : <span class="sp-data">{{project.priority}}</span></p>
+                </div>
+                <div class="col-md-10">
+                  <p>Order number : <span class="sp-data">{{project.order}}</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+</div>
+
+

@@ -1,0 +1,32 @@
+
+<p *ngIf="editStatus === '' " class="h4 mt-4 text-center">🏭 Add new project</p>
+<p *ngIf="editStatus === 'OK' " class="h4 mt-4 text-center">🏭 Edit the project n° <span style="font-size: 14px;">{{projectObject.id}}</span></p>
+
+<div class="container d-flex justify-content-center">
+  <div class="col-md-10" >
+      <form style="background-color: rgb(223, 231, 239); border-radius: 1.5%;" (ngSubmit)="editStatus === 'OK' ? updateOneProject() : submitForm()" ngNativeValidate class="text-center border border-light p-5">
+          <!-- Title of the project -->
+          <input type="text" [(ngModel)]="projectObject.title"  name="project_title" class="form-control mb-4" placeholder="Project title ?" required />
+
+          <!-- Desc of the project -->
+          <input type="text" [(ngModel)]="projectObject.description" name="project_desc" class="form-control mb-4" placeholder="Project description ?" required="required" />
+
+          <!-- select label -->
+          <label for="label" *ngIf="editStatus === 'OK'">Label ?</label>
+          <select *ngIf="editStatus === 'OK'" [(ngModel)]="projectObject.priority" name="label" class="form-control mb-4" required="required">
+            <option *ngFor="let label of enumKeysLabels" [value]="label">{{label}}</option>
+          </select>
+
+
+          <p *ngIf="err" class="mt-4 text-center">
+            <span style="color: red;font-weight: 400;"><small>❌ {{err}}</small></span>
+          </p>
+
+          <!-- Validate to save the project -->
+          <button class="btn btn-primary btn-sm btn-block my-8" type="submit">Validate</button>
+      </form>
+  </div>
+
+</div>
+
+
